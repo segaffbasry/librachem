@@ -1,0 +1,206 @@
+{
+  "source": "https://librachem.co.uk/",
+  "fetched": "2026-10-01",
+  "hero": [
+    "The UK’s Leading",
+    "MANUFACTURER & GLOBAL DISTRIBUTOR OF SURFACTANTS, SPECIALITY CHEMICALS & Contract toll services"
+  ],
+  "intro": "Based in Manchester, UK, Libra Speciality Chemicals are a leading UK chemical manufacturer and global distributor of surfactants and speciality industrial chemicals. Our chemicals are supplied into various industrial markets including Personal Care, Household & Institutional Cleaning and Industrial sectors including Energy Extraction, Agriculture, Lubricants, Metal Working and Coatings markets.",
+  "standard": "At Libra, we have been setting the standards in the provision of high quality chemical and speciality surfactant manufacturing for over 50 years. Learn more about:",
+  "pillars": [
+    {
+      "title": "LIBRA PRODUCTS",
+      "text": "Libra manufacture speciality performance and bespoke surfactants with a wide range of industry applications…",
+      "href": "https://librachem.co.uk/libra-products/"
+    },
+    {
+      "title": "Applications & Distribution",
+      "text": "Our surfactants are produced for global industries alongside the global distribution of surfactants…",
+      "href": "https://librachem.co.uk/libra-applications/"
+    },
+    {
+      "title": "CONTRACT & TOLL",
+      "text": "Libra provide a bespoke, total chemical manufacturing and supply solution to meet your company’s needs…",
+      "href": "https://librachem.co.uk/chemical-contract-and-toll-manufacturing-services-uk/"
+    }
+  ],
+  "tiles": [
+    {
+      "id": "banner-156360053",
+      "title": "ABoUT us",
+      "href": "https://librachem.co.uk/about-us/",
+      "image": "https://librachem.co.uk/wp-content/uploads/2023/05/26.png",
+      "video": null
+    },
+    {
+      "id": "banner-1964996831",
+      "title": "Our Products",
+      "href": "https://librachem.co.uk/libra-products/",
+      "image": "https://librachem.co.uk/wp-content/uploads/2023/05/bottles-image.png",
+      "video": null
+    },
+    {
+      "id": "banner-1768646211",
+      "title": "Personal care",
+      "href": "https://librachem.co.uk/personal-care/",
+      "image": "https://librachem.co.uk/wp-content/uploads/2023/02/personal-care-home.jpg",
+      "video": null
+    },
+    {
+      "id": "banner-1646015072",
+      "title": "HI & I Cleaning",
+      "href": "https://librachem.co.uk/hi-i-cleaning/",
+      "image": "https://librachem.co.uk/wp-content/uploads/2023/03/libra_hii_cleaning-inside-image.jpg",
+      "video": null
+    },
+    {
+      "id": "banner-469456801",
+      "title": "Made in Manchester (UK)Distributed around the world",
+      "href": null,
+      "image": "https://librachem.co.uk/wp-content/uploads/2023/05/site-image.png",
+      "video": "https://librachem.co.uk/wp-content/uploads/2023/03/made-in-manchester-website-video-background.mp4"
+    },
+    {
+      "id": "banner-1182984094",
+      "title": "Contract manufacturing",
+      "href": "https://librachem.co.uk/chemical-contract-and-toll-manufacturing-services-uk/",
+      "image": "https://librachem.co.uk/wp-content/uploads/2023/05/32.png",
+      "video": null
+    },
+    {
+      "id": "banner-1750260354",
+      "title": "Agriculture",
+      "href": "https://librachem.co.uk/agriculture/",
+      "image": "https://librachem.co.uk/wp-content/uploads/2023/02/agriculture-home.jpg",
+      "video": null
+    },
+    {
+      "id": "banner-1180566481",
+      "title": "Oil & gas",
+      "href": "https://librachem.co.uk/oil-and-gas/",
+      "image": "https://librachem.co.uk/wp-content/uploads/2023/02/oil-gas-home.jpg",
+      "video": null
+    },
+    {
+      "id": "banner-1407800498",
+      "title": "Industrial sectors",
+      "href": "https://librachem.co.uk/industrial-sectors/",
+      "image": "https://librachem.co.uk/wp-content/uploads/2023/03/Industrial-home-page-e1677772295263.jpg",
+      "video": null
+    }
+  ],
+  "accreditations": {
+    "title": "Our Accreditations",
+    "text": [
+      "We have been certified and accredited by a range of trade, material and manufacturing organisations. We have also been certified in safety management, environmental and quality practices across our services and products.",
+      "These certifications include: ISO14001:2015, ISO9001:2015, ISO45001:2018 (OH&S). Ecocert COSMOS Natural and Organic, EFfCI GMP certification. We are members of the RSPO, BCMPA and British Safety Council."
+    ],
+    "badges": [
+      {
+        "label": "ISO 45001:2018",
+        "href": "https://www.sgs.com/en/certified-clients-and-products/certified-client-directory",
+        "image": "https://librachem.co.uk/wp-content/uploads/2023/07/4-1.png"
+      },
+      {
+        "label": "ISO 9001:2015",
+        "href": "https://www.sgs.com/en/certified-clients-and-products/certified-client-directory",
+        "image": "https://librachem.co.uk/wp-content/uploads/2023/07/2-2.png"
+      },
+      {
+        "label": "ISO 14001:2015",
+        "href": "https://www.sgs.com/en/certified-clients-and-products/certified-client-directory",
+        "image": "https://librachem.co.uk/wp-content/uploads/2023/07/3-2.png"
+      },
+      {
+        "label": "EFfCI GMP",
+        "href": "https://www.sgs.com/en/certified-clients-and-products/certified-client-directory",
+        "image": "https://librachem.co.uk/wp-content/uploads/2023/07/5-1.png"
+      },
+      {
+        "label": "COSMOS Organic",
+        "href": null,
+        "image": "https://librachem.co.uk/wp-content/uploads/2023/08/33.png"
+      },
+      {
+        "label": "COSMOS Natural",
+        "href": null,
+        "image": "https://librachem.co.uk/wp-content/uploads/2023/08/34.png"
+      },
+      {
+        "label": "RSPO",
+        "href": "https://acrobat.adobe.com/id/urn:aaid:sc:EU:86cb5183-6343-4310-b44c-d32ada4eb20c",
+        "image": "https://librachem.co.uk/wp-content/uploads/2026/01/RSPO-Logo-.png"
+      },
+      {
+        "label": "BCMPA MEMBER",
+        "href": null,
+        "image": "https://librachem.co.uk/wp-content/uploads/2023/07/14.png"
+      },
+      {
+        "label": "BRITISH SAFETY COUNCIL MEMBER",
+        "href": null,
+        "image": "https://librachem.co.uk/wp-content/uploads/2023/07/12.png"
+      },
+      {
+        "label": "EFfCI MEMBER",
+        "href": null,
+        "image": "https://librachem.co.uk/wp-content/uploads/2023/07/11.png"
+      },
+      {
+        "label": "SILVER ECOVADIS SUSTAINABILITY",
+        "href": "https://recognition.ecovadis.com/wRcB2OglukGvnze2_U5fDA",
+        "image": "https://librachem.co.uk/wp-content/uploads/2025/08/medal.png"
+      },
+      {
+        "label": "",
+        "href": "https://acrobat.adobe.com/id/urn:aaid:sc:EU:f4a7b054-1253-4512-a371-386e49c2dcad",
+        "image": "https://librachem.co.uk/wp-content/uploads/2025/11/badge-en.png"
+      }
+    ],
+    "resources": "https://librachem.co.uk/libra-news/resources/"
+  },
+  "events": [
+    {
+      "href": "https://librachem.co.uk/2023/07/27/chemicals-northwest-2026-awards/",
+      "title": "Chemicals Northwest 2026 Awards",
+      "date": "2023-07-27",
+      "category": "Blog Posts",
+      "excerpt": "We’re pleased to share that Libra Speciality Chemicals has won the International Trade Award 2026 at the Chemicals Northwest Awards 2026.This recognition reflects our continued focus on building a strong international presence, developing long term partnerships, and delivering consistently across global markets.Thank you to everyone involved, and congratulations to all other winners and finalists.hashtag#ChemicalsNorthwest hashtag#InternationalTrade hashtag#ChemicalIndustry hashtag#GlobalMarkets hashtag#LibraSpecialityChemicals",
+      "image": "https://librachem.co.uk/wp-content/uploads/2023/07/image.png"
+    }
+  ],
+  "news": [
+    {
+      "href": "https://librachem.co.uk/2023/08/03/public-environmental-data/",
+      "title": "Public Environmental Data",
+      "date": "2023-08-03",
+      "category": "events",
+      "excerpt": "2024 is the first year in which Libra’s full carbon emissions have been calculated.",
+      "image": "https://librachem.co.uk/wp-content/uploads/2023/08/110.png"
+    },
+    {
+      "href": "https://librachem.co.uk/2025/11/13/new-librateric-coco-betaine-35/",
+      "title": "Librateric: Coco-Betaine, CB 35",
+      "date": "2025-11-13",
+      "category": "events",
+      "excerpt": "Why Librateric CB35 Matters in Modern Formulation",
+      "image": "https://librachem.co.uk/wp-content/uploads/2023/09/libra-website-blue-chem-header-Large.png"
+    },
+    {
+      "href": "https://librachem.co.uk/2023/01/24/sunscreen-formulations/",
+      "title": "Sunscreen Formulations",
+      "date": "2023-01-24",
+      "category": "Blog Posts",
+      "excerpt": "Following our recent post on Libranol 1618 (30:70), we have developed an SPF 30 sunscreen formulation guide to show how it can be used in a full system.Libranol 1618 (30:70) is used at 3.5% as a structuring agent to support emulsion stability, viscosity, and a smooth skin feel.If you are developing sunscreen formulations and need a reliable fatty alcohol base, this demonstrates how Libranol 1618 can be applied in practice.🌐 www.librachem.co.uk📧 sales@librachem.co.uk📞 +44 161 775 1888",
+      "image": "https://librachem.co.uk/wp-content/uploads/2023/01/Sun-screen-.png"
+    }
+  ],
+  "linko": {
+    "href": "https://linko.page/librachem",
+    "image": "https://librachem.co.uk/wp-content/uploads/2023/05/brand-values.png"
+  },
+  "footer": {
+    "registered": "",
+    "hours": "Office hours: Monday to Friday 8am: 5pm GMT"
+  }
+}
