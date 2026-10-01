@@ -1,0 +1,43 @@
+/* ---------- Buttons: the copied ACN `.new-button` (components/ui.tsx has the live CSS it comes from) ----------
+   Rest:   1px border, no shadow.       Hover/focus: translate(-6px,-6px) and a 6px 6px hard shadow, 0.2s "ease".
+   Tones map ACN's variants onto the palette:
+     line   ACN default (surface fill, text-colour border and shadow); follows currentColor, so it works on any ground
+     navy   ACN .cc-blue-shadow (deep fill, white text, accent shadow): navy fill, lime shadow
+     lime   ACN .cc-green (mint fill, deep text): lime fill, navy text, shadow in the ground's text colour
+     white  ACN's outline button on its dark band: white line and text, white shadow */
+.btn {
+  --btn-bg: transparent; --btn-fg: currentColor; --btn-line: currentColor; --btn-shadow: currentColor;
+  display: inline-flex; align-items: center; justify-content: center; min-height: 44px;
+  padding: 0.63em 2em; /* ACN */
+  border: 1px solid var(--btn-line); background-color: var(--btn-bg); color: var(--btn-fg);
+  box-shadow: 0 0 0 0 var(--btn-shadow);
+  font: 400 0.99rem/1.4 var(--font-ui); letter-spacing: 0.01em; white-space: nowrap;
+  transition: box-shadow var(--btn-dur) var(--btn-ease), transform var(--btn-dur) var(--btn-ease), opacity 0.3s var(--btn-ease);
+}
+.btn:hover, .btn:focus-visible {
+  box-shadow: var(--btn-shift) var(--btn-shift) 0 0 var(--btn-shadow);
+  transform: translate(calc(var(--btn-shift) * -1), calc(var(--btn-shift) * -1));
+}
+.btn:focus-visible { outline-offset: 4px; }
+.btn-line { --btn-fg: var(--text); --btn-line: var(--text); --btn-shadow: var(--text); }
+.btn-navy { --btn-bg: var(--navy); --btn-fg: var(--white); --btn-line: var(--navy); --btn-shadow: var(--lime); }
+.btn-lime { --btn-bg: var(--lime); --btn-fg: var(--navy); --btn-line: var(--lime); --btn-shadow: var(--text); }
+.btn-white { --btn-fg: var(--white); --btn-line: var(--white); --btn-shadow: var(--white); }
+.btn-sm { min-height: 40px; padding: 0.5em 1.4em; font-size: 0.9375rem; }
+.site-header .btn-line { --btn-fg: currentColor; --btn-line: currentColor; --btn-shadow: currentColor; }
+
+/* ---------- Text links: an underline that draws in from the left ---------- */
+.u-link { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size var(--dur-hover) var(--ease), color var(--dur-hover) var(--ease); }
+.u-link:hover, .u-link:focus-visible { background-size: 100% 1px; }
+
+.arrow { flex: none; transition: transform var(--dur-hover) var(--ease); }
+.big-arrow { flex: none; width: clamp(34px, 3vw, 44px); height: auto; transition: transform var(--dur-hover) var(--ease); }
+
+.eyebrow { color: var(--muted); }
+[data-tone="dark"] .accent { color: var(--lime); }
+
+/* Shared section rhythm. */
+.section { padding-block: var(--space-section); background: var(--ground); }
+.section-head { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 12px var(--gutter); align-items: baseline; margin-bottom: var(--space-block); }
+.section-head .h2 { max-width: 30ch; }
+@media (max-width: 860px) { .section-head { grid-template-columns: 1fr; } }

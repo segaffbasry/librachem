@@ -1,0 +1,125 @@
+/* Fonts, self-hosted (public/fonts, from @fontsource).
+   Lato is the live site's own face (librachem.co.uk sets body, nav and headings in Lato 400/700): UI and body.
+   Montserrat is the display face, chosen as the closest open licence match to the LIBRA wordmark's geometric caps
+   (flat terminals, round B and R bowls, wide set). Used for the preloader, the hero and section headlines only. */
+@font-face { font-family: "Lato"; src: url("/fonts/lato-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Lato"; src: url("/fonts/lato-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Lato"; src: url("/fonts/lato-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("/fonts/montserrat-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
+
+/* Palette: four colours, nothing else (README "Palette"). Tints are the same colours at lower alpha.
+   Navy  #263068  the logo's letters and the live site's primary text colour (rgb(38,48,104))
+   Lime  #a9ca49  the logo's swooshes and the live "GET IN TOUCH!" pill (rgb(169,202,73))
+   Mist  #f1f1f1  the live site's grey section ground (rgb(241,241,241))
+   White #ffffff
+   Lime is never used for text on white (1.9:1). It carries fills, and text only on navy (6.6:1). */
+:root {
+  --navy: #263068;
+  --lime: #a9ca49;
+  --mist: #f1f1f1;
+  --white: #ffffff;
+
+  --text: var(--navy);
+  --muted: rgba(38, 48, 104, 0.76);   /* 6.4:1 on white, 5.8:1 on mist */
+  --line: rgba(38, 48, 104, 0.16);    /* ACN's --light-mint hairlines (#d0e0e0), redrawn in navy */
+  --ground: var(--white);
+
+  --font-ui: "Lato", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Montserrat", "Lato", "Helvetica Neue", Arial, sans-serif;
+
+  /* Type scale. acnetwork.nl at 1440px (computed styles): h1 35.6px/1.4 uppercase, statement h2 27.7px/1.3,
+     card h5 23.8px/1.3, body 17.8px, nav and buttons 15.8px. Everything here sits at or below it. */
+  --fs-hero: clamp(1.6rem, 1.1rem + 1.7vw, 2.4rem);      /* ≤ 38px */
+  --fs-h2: clamp(1.35rem, 1.1rem + 0.8vw, 1.75rem);      /* ≤ 28px */
+  --fs-h3: clamp(1.1rem, 1rem + 0.35vw, 1.375rem);       /* ≤ 22px */
+  --fs-body: clamp(1rem, 0.97rem + 0.12vw, 1.0625rem);   /* 16 to 17px */
+  --fs-lead: clamp(1.05rem, 1rem + 0.25vw, 1.1875rem);   /* ≤ 19px */
+  --fs-small: 0.875rem;
+  --fs-label: 0.8125rem;
+
+  /* Spacing scale (pacing rules). ACN: --padding--section 6.25em (99px), mobile 5em. Here 56px to 88px. */
+  --gutter: clamp(16px, 2.75vw, 40px);  /* ACN container padding 39.6px at 1440 */
+  --space-section: clamp(56px, 40px + 3.4vw, 88px);
+  --space-block: clamp(32px, 24px + 1.6vw, 48px);
+  --space-tight: clamp(16px, 12px + 0.6vw, 24px);
+  --header-h: 76px;
+  --measure: 64ch;
+
+  /* Motion (lib/ease.ts has the JS twins). ACN runs every interaction on CSS "ease". */
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --dur-fast: 0.2s;   /* ACN buttons and IX2 200ms */
+  --dur-hover: 0.3s;  /* ACN IX2 300ms */
+  --dur-slow: 0.5s;   /* ACN IX2 500ms */
+
+  /* The copied interaction (components/ui.tsx Button): ACN `.new-button`. */
+  --btn-shift: 6px;
+  --btn-dur: 0.2s;
+  --btn-ease: var(--ease);
+}
+
+[data-tone="dark"] {
+  --text: var(--white);
+  --muted: rgba(255, 255, 255, 0.8);
+  --line: rgba(255, 255, 255, 0.2);
+  --ground: var(--navy);
+  color: var(--text);
+}
+[data-tone="mist"] { --ground: var(--mist); --muted: rgba(38, 48, 104, 0.8); }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: clip; }
+body { margin: 0; background: var(--white); color: var(--navy); font: 400 var(--fs-body)/1.55 var(--font-ui); overflow-x: clip; }
+img, video, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+h1, h2, h3, h4, p, ul, ol, figure, blockquote { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; }
+[data-tone="dark"] :focus-visible { outline-color: var(--lime); }
+::selection { background: var(--lime); color: var(--navy); }
+
+.wrap { width: 100%; max-width: 1584px; margin-inline: auto; padding-inline: var(--gutter); } /* ACN .container max-width 1584px */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip-link { position: fixed; left: 12px; top: -60px; z-index: 300; padding: 10px 14px; background: var(--navy); color: var(--white); transition: top var(--dur-fast) var(--ease); }
+.skip-link:focus { top: 12px; }
+main:focus, [tabindex="-1"]:focus { outline: none; }
+
+/* Headlines: ACN sets every heading in capitals at a regular weight, with plenty of line height. */
+.h-display, .h2, .h3 { font-family: var(--font-display); font-weight: 500; text-transform: uppercase; text-wrap: balance; }
+.h-display { font-size: var(--fs-hero); line-height: 1.3; letter-spacing: 0.005em; }
+.h2 { font-size: var(--fs-h2); line-height: 1.3; letter-spacing: 0.01em; }
+.h3 { font-size: var(--fs-h3); line-height: 1.3; letter-spacing: 0.01em; }
+.lead { font-size: var(--fs-lead); line-height: 1.55; color: var(--muted); max-width: var(--measure); }
+.copy { max-width: var(--measure); color: var(--muted); }
+.copy p + p { margin-top: 0.9em; }
+.label { font-size: var(--fs-label); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.muted { color: var(--muted); }
+
+/* Photography stays inside the palette. Stills are toned to a navy-to-white duotone at build time
+   (scripts/media.sh). Films are toned live: a grayscale frame under a navy layer blended with `color`, which keeps
+   the frame's lightness and takes navy's hue, so shadows and mid-tones read navy and highlights stay white,
+   matching the stills. */
+.tone { position: relative; isolation: isolate; background: var(--navy); overflow: hidden; }
+.tone video, .tone > img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05) brightness(1.08); }
+.tone::after { content: ""; position: absolute; inset: 0; background: var(--navy); mix-blend-mode: color; opacity: 0.85; pointer-events: none; }
+
+/* Reveal start states. `js` is set before first paint (layout boot script) unless reduced motion is requested,
+   so without JS, or with reduced motion, everything renders in place. motion.tsx takes over on mount. */
+html.js [data-reveal]:not([data-shown]) { opacity: 0; }
+html.js [data-reveal="image"]:not([data-shown]) { opacity: 1; clip-path: inset(100% 0 0 0); }
+html.js [data-reveal="text"]:not([data-shown]) { opacity: 1; }
+.wm { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+.wi { display: inline-block; will-change: transform; }
+
+/* Hero parts wait for the preloader handover (intro:done); motion lives in components/home/Hero.tsx. */
+html.js:not([data-intro="done"]) [data-hero-part] { opacity: 0; }
+
+/* While the preloader runs, the page under it is fixed in place. */
+html.is-loading { overflow: clip; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

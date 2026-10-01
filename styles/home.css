@@ -1,0 +1,130 @@
+/* ---------- Hero: statement left on white, film panel right (ACN's hero with its blue panel) ---------- */
+.hero { padding-top: calc(var(--header-h) + 8px); padding-bottom: var(--gutter); background: var(--white); }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: var(--space-block) clamp(32px, 4vw, 72px); min-height: min(calc(100svh - var(--header-h) - 8px - var(--gutter)), 860px); }
+.hero-copy { display: flex; flex-direction: column; gap: var(--space-block); padding-top: clamp(24px, 7vh, 96px); }
+.hero-eyebrow { color: var(--muted); margin-bottom: 18px; }
+.hero-heading { display: block; font-family: var(--font-display); font-weight: 500; font-size: var(--fs-hero); line-height: 1.3; text-transform: uppercase; max-width: 30ch; }
+/* "The UK's Leading" is lime on the live page. Lime type fails on white, so it becomes a lime highlight behind navy. */
+.hero-lead { display: inline; padding: 0.04em 0.22em; margin-left: -0.22em; background: var(--lime); -webkit-box-decoration-break: clone; box-decoration-break: clone; font-weight: 600; }
+.hero-title { display: block; margin-top: 0.2em; }
+.hero-foot { margin-top: auto; display: grid; gap: 22px; }
+.hero-place { color: var(--muted); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px 16px; }
+.hero-media { position: relative; min-height: 420px; }
+.hero-media video { position: absolute; inset: 0; }
+.film-toggle { position: absolute; right: 16px; bottom: 16px; z-index: 2; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px; background: var(--white); color: var(--navy); font-size: var(--fs-small); transition: background-color var(--dur-fast) var(--ease); }
+.film-toggle:hover { background: var(--lime); }
+.icon-pause, .icon-play { display: inline-block; }
+.icon-pause { width: 10px; height: 12px; border-inline: 3px solid currentColor; }
+.icon-play { width: 0; height: 0; border-block: 6px solid transparent; border-left: 10px solid currentColor; }
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; min-height: 0; }
+  .hero-copy { padding-top: 24px; }
+  .hero-media { min-height: 0; aspect-ratio: 16 / 11; }
+}
+
+/* ---------- About: statement, then three cards stepping down the page (ACN's three offset cards) ---------- */
+.about-head { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 12px var(--gutter); }
+.about-intro { display: grid; gap: 22px; justify-items: start; }
+.about-intro .h2 { max-width: 40ch; }
+.about-more { margin: var(--space-block) 0 16px; color: var(--muted); }
+.pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gutter); align-items: start; }
+.pillar { background: var(--ground); color: var(--text); }
+.pillar-1 { border: 1px solid var(--line); }
+.pillar-2 { margin-top: 48px; }
+.pillar-3 { margin-top: 96px; }
+.pillar > a { display: block; height: 100%; }
+.pillar-photo { aspect-ratio: 16 / 10; overflow: hidden; background: var(--navy); }
+.pillar-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-slow) var(--ease); }
+.pillar-body { display: grid; gap: 12px; padding: clamp(20px, 2vw, 32px); }
+.pillar-text { color: var(--muted); }
+.pillar-cta { display: inline-flex; align-items: center; gap: 10px; margin-top: 12px; font-weight: 700; font-size: var(--fs-small); letter-spacing: 0.06em; text-transform: uppercase; }
+.pillar > a:hover .arrow, .pillar > a:focus-visible .arrow { transform: translateX(5px); }
+@media (max-width: 860px) {
+  .about-head { grid-template-columns: 1fr; }
+  .pillars { grid-template-columns: 1fr; gap: 12px; }
+  .pillar-2, .pillar-3 { margin-top: 0; }
+}
+/* Phones and tablets: each card becomes a row (photo beside text) so the three stay within about one screen. */
+@media (max-width: 860px) {
+  .pillar > a { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
+  .pillar-photo { aspect-ratio: auto; height: 100%; min-height: 150px; }
+  .pillar-body { gap: 8px; padding: 16px; }
+  .pillar-body .h3 { font-size: 1rem; }
+  .pillar-text { font-size: 0.875rem; line-height: 1.45; }
+  .pillar-cta { margin-top: 4px; font-size: 0.75rem; }
+}
+
+/* ---------- Markets: ACN's member wall (one ruled grid, equal cells) ---------- */
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.tile { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--white); }
+.tile > a { display: grid; gap: 14px; height: 100%; padding: clamp(10px, 1.2vw, 16px); }
+.tile-photo { aspect-ratio: 4 / 3; overflow: hidden; background: var(--navy); }
+.tile-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-slow) var(--ease); }
+.tile > a:hover .tile-photo img, .tile > a:focus-visible .tile-photo img, .pillar > a:hover .pillar-photo img { transform: scale(1.05); }
+.tile-name { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 2px 4px; font-family: var(--font-display); font-weight: 500; font-size: clamp(0.8125rem, 0.75rem + 0.3vw, 1rem); letter-spacing: 0.02em; text-transform: uppercase; }
+.tile > a:hover .arrow, .tile > a:focus-visible .arrow { transform: translateX(5px); }
+@media (max-width: 900px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- Made in Manchester: ACN's dark call-to-action band ---------- */
+.manchester { background: var(--navy); padding-block: clamp(48px, 32px + 3vw, 72px); }
+.manchester-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-block) clamp(32px, 4vw, 72px); align-items: center; }
+.manchester-copy { display: grid; gap: 32px; justify-items: start; }
+.manchester-actions { display: flex; flex-wrap: wrap; gap: 14px 16px; }
+.manchester-film { aspect-ratio: 640 / 200; }
+.manchester-film video { filter: grayscale(1) brightness(2) contrast(1.15); } /* the source film is shot at dusk */
+@media (max-width: 860px) { .manchester-grid { grid-template-columns: 1fr; } }
+
+/* ---------- Accreditations: ACN's member wall with the twelve marks ---------- */
+.acc-head { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 16px var(--gutter); margin-bottom: var(--space-block); }
+.badges { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.badge { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.badge > a, .badge > div { display: grid; grid-template-rows: 1fr auto; justify-items: center; align-items: center; gap: 10px; height: 100%; aspect-ratio: 1 / 1; padding: clamp(12px, 1.6vw, 24px) 10px 14px; transition: background-color var(--dur-hover) var(--ease); }
+.badge img { width: auto; height: auto; max-width: 78%; max-height: clamp(60px, 7vw, 104px); object-fit: contain; }
+.badge-name { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-align: center; color: var(--muted); line-height: 1.3; }
+.badge > a:hover, .badge > a:focus-visible { background: var(--mist); }
+.acc-foot { margin-top: 32px; }
+@media (max-width: 1000px) { .badges { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 860px) { .acc-head { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .badges { grid-template-columns: repeat(3, minmax(0, 1fr)); } .badge-name { font-size: 0.625rem; letter-spacing: 0.03em; } }
+
+/* ---------- News: ACN's event row and news cards ---------- */
+.events { border-top: 1px solid var(--line); }
+.events li { border-bottom: 1px solid var(--line); }
+.event { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 4fr) auto; gap: 24px var(--gutter); align-items: start; padding-block: clamp(24px, 2.4vw, 36px); }
+.event-main { display: grid; gap: 10px; }
+.event-date, .post-meta { font-size: var(--fs-small); }
+.event-image { width: 100%; max-width: 280px; height: auto; aspect-ratio: 800 / 487; object-fit: cover; }
+.event-text { max-width: 46ch; }
+.event:hover .big-arrow, .event:focus-visible .big-arrow, .post > a:hover .big-arrow, .post > a:focus-visible .big-arrow { transform: translateX(6px); }
+.news-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; margin: var(--space-block) 0 24px; }
+.posts { --post-pad: clamp(16px, 1.8vw, 28px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: calc(var(--post-pad) * 2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.post { position: relative; }
+.post + .post::before { content: ""; position: absolute; top: 0; bottom: 0; left: calc(var(--post-pad) * -1); border-left: 1px solid var(--line); }
+.post > a { display: grid; grid-template-rows: auto 1fr auto; gap: 18px; height: 100%; padding-block: 24px; }
+.post-photo { aspect-ratio: 16 / 10; overflow: hidden; background: var(--navy); }
+.post-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-slow) var(--ease); }
+.post-photo img.is-contain { object-fit: contain; }
+.post > a:hover .post-photo img { transform: scale(1.04); }
+.post-body { display: grid; gap: 10px; align-content: start; }
+.post-body .h3 { font-size: clamp(1rem, 0.95rem + 0.3vw, 1.2rem); }
+.post-text { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.post .big-arrow { justify-self: end; }
+@media (max-width: 960px) {
+  .event { grid-template-columns: minmax(0, 1fr) auto; }
+  .event-image { grid-column: 1; grid-row: 2; }
+  .event-text { grid-column: 1; }
+  .event .big-arrow { grid-column: 2; grid-row: 1; }
+  .posts { grid-template-columns: 1fr; border-bottom: 0; }
+  .post { border-bottom: 1px solid var(--line); }
+  .post + .post::before { display: none; }
+  .post > a { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); grid-template-rows: auto auto; column-gap: 20px; }
+  .post-photo { grid-row: span 2; }
+}
+@media (max-width: 520px) {
+  .post > a { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 10px 16px; padding-block: 18px; }
+  .post-photo { aspect-ratio: 1 / 1; }
+  .post-text { font-size: 0.875rem; }
+  .post .big-arrow { width: 28px; }
+  .event-image { max-width: 200px; }
+}
