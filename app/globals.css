@@ -98,13 +98,11 @@ main:focus, [tabindex="-1"]:focus { outline: none; }
 .label { font-size: var(--fs-label); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
 .muted { color: var(--muted); }
 
-/* Photography stays inside the palette. Stills are toned to a navy-to-white duotone at build time
-   (scripts/media.sh). Films are toned live: a grayscale frame under a navy layer blended with `color`, which keeps
-   the frame's lightness and takes navy's hue, so shadows and mid-tones read navy and highlights stay white,
-   matching the stills. */
-.tone { position: relative; isolation: isolate; background: var(--navy); overflow: hidden; }
-.tone video, .tone > img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05) brightness(1.08); }
-.tone::after { content: ""; position: absolute; inset: 0; background: var(--navy); mix-blend-mode: color; opacity: 0.85; pointer-events: none; }
+/* Photography (README "Photography"): Libra's own imagery shows in its real colour, eased to 85% saturation so it
+   sits calmly beside navy and lime; only the stock sector tiles carry a light navy tint (scripts/media.sh).
+   The films get the same 85% easing live, so poster and film match. */
+.tone { position: relative; background: var(--navy); overflow: hidden; }
+.tone video, .tone > img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.85); }
 
 /* Reveal start states. `js` is set before first paint (layout boot script) unless reduced motion is requested,
    so without JS, or with reduced motion, everything renders in place. motion.tsx takes over on mount. */

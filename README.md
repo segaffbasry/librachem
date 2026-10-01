@@ -150,15 +150,21 @@ group names (or "Menu" under 1180px) open a full-screen navy menu (clip wipe dow
 focus trap, Esc to close and focus returned to the trigger.
 
 **Hero film:** muted, looped, `playsInline`, local poster, pause/play button (`aria-pressed`), pauses off-screen,
-starts paused with reduced motion.
+starts paused with reduced motion. The Manchester film is brightened in CSS (it was shot at dusk).
 
 ## Photography
 
-All images are the live site's own (company site photos, film stills and the tiles' images). `scripts/media.sh`
-tones every still to a navy-to-white duotone so stock tiles (pink jar, red triggers, orange sunset) sit in the
-palette. Films are toned in CSS: grayscale under a navy layer blended with `color`. Accreditation marks are
-third-party logos shown in one navy ink, like ACN's member wall. The two pillar photos of the control room and
-reactor panel are stills from the company film.
+All images are the live site's own (company site photos, film stills, post graphics and the tiles' images).
+Two tiers (`scripts/media.sh`, decided with the client after a first pass that tinted everything navy):
+
+- **Natural:** Libra's own imagery (hero and Manchester films, head office, tank farm, site aerial, the control
+  room and reactor panel stills, post graphics) in its real colour, eased to 85% saturation. The footage is grey
+  steel, white tanks and sky, so it sits beside navy and lime as it is. Films get the same easing in CSS.
+- **Light tint:** the generic stock on the sector tiles and the lab glassware (pink jar, red triggers, orange sunset):
+  a navy-to-white duotone mixed 70/30 with the original, so the grid reads as one set without looking filtered.
+
+Accreditation marks are third-party logos shown in one navy ink, like ACN's member wall. The control room and reactor
+panel photos are stills from the company film.
 
 ## Accessibility and fallbacks
 

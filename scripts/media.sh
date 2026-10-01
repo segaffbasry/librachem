@@ -2,9 +2,12 @@
 # Downloads every image and film the live homepage uses (into _scrape/raw, gitignored) and writes the web versions
 # to public/media. Needs curl, ffmpeg and python3 with Pillow. Run: npm run media
 #
-# Treatment (README "Photography"): every photo is mapped onto the palette as a navy-to-white duotone, so the stock
-# sector shots (pink jars, red triggers, orange sunsets) sit in the same two inks as the logo. The films stay in
-# colour files and are toned in CSS (grayscale + navy multiply), which keeps them light to ship.
+# Treatment (README "Photography"), two tiers:
+#   natural  Libra's own imagery (site photos, film stills, post graphics) in its real colour, eased to 85% saturation.
+#            Their footage is grey steel, white tanks and sky, so it sits beside navy and lime as it is.
+#   tinted   the generic stock on the sector tiles (pink jar, red triggers, orange sunset): a navy-to-white duotone
+#            mixed 70/30 with the original, so the grid reads as one set without looking filtered.
+# The films are shipped untouched and eased in CSS the same way as the natural stills.
 set -e
 cd "$(dirname "$0")/.."
 RAW=_scrape/raw
@@ -34,37 +37,45 @@ ffmpeg -loglevel error -y -ss 45 -i "$RAW/2023_12_Libra-Chem-V3-online.mp4" -fra
 ffmpeg -loglevel error -y -ss 1 -i "$RAW/2023_03_made-in-manchester-website-video-background.mp4" -frames:v 1 "$RAW/still-manchester-poster.png"
 
 python3 - <<'PY'
-from PIL import Image, ImageOps
+from PIL import Image, ImageEnhance, ImageOps
 RAW, OUT = "_scrape/raw", "public/media"
 NAVY, WHITE = (0x26, 0x30, 0x68), (0xff, 0xff, 0xff)
 
-def duotone(src, dst, width, crop=None, gamma=1.0):
+def load(src, width, gamma=1.0):
     im = Image.open(f"{RAW}/{src}").convert("RGB")
-    if crop: im = ImageOps.fit(im, crop, Image.LANCZOS)
     if im.width > width: im = im.resize((width, round(im.height * width / im.width)), Image.LANCZOS)
-    g = ImageOps.autocontrast(ImageOps.grayscale(im), cutoff=1)
-    if gamma != 1.0: g = g.point(lambda v: round(255 * (v / 255) ** gamma))  # opens up the darker source shots
-    ImageOps.colorize(g, NAVY, WHITE).save(f"{OUT}/{dst}", quality=82, optimize=True, progressive=True)
+    if gamma != 1.0: im = im.point(lambda v: round(255 * (v / 255) ** gamma))  # opens up the darker source shots
+    return im
+
+def save(im, dst): im.save(f"{OUT}/{dst}", quality=82, optimize=True, progressive=True)
+
+def natural(src, dst, width, gamma=1.0):
+    save(ImageEnhance.Color(load(src, width, gamma)).enhance(0.85), dst)
+
+def tinted(src, dst, width, mix=0.7):
+    im = load(src, width)
+    duo = ImageOps.colorize(ImageOps.autocontrast(ImageOps.grayscale(im), cutoff=1), NAVY, WHITE)
+    save(Image.blend(im, duo, mix), dst)
 
 # Company photography (the Irlam site) and film stills.
-duotone("2023_05_26.png", "head-office.jpg", 1600)
-duotone("2023_05_32.png", "tank-farm.jpg", 1600)
-duotone("2023_05_site-image.png", "site-aerial.jpg", 1600, gamma=0.6)  # the live file already carries a dark navy wash
-duotone("still-control-room.png", "control-room.jpg", 960)
-duotone("still-reactor-panel.png", "reactor-panel.jpg", 960)
-duotone("2023_05_bottles-image.png", "glassware.jpg", 1600)
+natural("2023_05_26.png", "head-office.jpg", 1600)
+natural("2023_05_32.png", "tank-farm.jpg", 1600)
+natural("2023_05_site-image.png", "site-aerial.jpg", 1600, gamma=0.7)  # the live file already carries a dark navy wash
+natural("still-control-room.png", "control-room.jpg", 960)
+natural("still-reactor-panel.png", "reactor-panel.jpg", 960)
+tinted("2023_05_bottles-image.png", "glassware.jpg", 1600)  # stock lab glassware, sits with the sector tiles
 # Sector tiles (the live site's own tile images).
-duotone("2023_02_personal-care-home.jpg", "sector-personal-care.jpg", 900)
-duotone("2023_03_libra_hii_cleaning-inside-image.jpg", "sector-cleaning.jpg", 900)
-duotone("2023_02_agriculture-home.jpg", "sector-agriculture.jpg", 900)
-duotone("2023_02_oil-gas-home.jpg", "sector-oil-gas.jpg", 900)
-duotone("2023_03_Industrial-home-page-e1677772295263.jpg", "sector-industrial.jpg", 900)
-# Featured posts.
-duotone("2023_07_image.png", "post-award.jpg", 800)
-duotone("2023_08_110.png", "post-environmental.jpg", 800)
-duotone("2023_09_libra-website-blue-chem-header-Large.png", "post-cb35.jpg", 800)
-duotone("2023_01_Sun-screen-.png", "post-sunscreen.jpg", 800)
-# Film posters: kept in colour, the CSS tone applies to poster and film alike so the swap is seamless.
+tinted("2023_02_personal-care-home.jpg", "sector-personal-care.jpg", 900)
+tinted("2023_03_libra_hii_cleaning-inside-image.jpg", "sector-cleaning.jpg", 900)
+tinted("2023_02_agriculture-home.jpg", "sector-agriculture.jpg", 900)
+tinted("2023_02_oil-gas-home.jpg", "sector-oil-gas.jpg", 900)
+tinted("2023_03_Industrial-home-page-e1677772295263.jpg", "sector-industrial.jpg", 900)
+# Featured posts: Libra's own graphics.
+natural("2023_07_image.png", "post-award.jpg", 800)
+tinted("2023_08_110.png", "post-environmental.jpg", 800, mix=1)  # a navy icon on black: the full duotone turns the black ground navy
+natural("2023_09_libra-website-blue-chem-header-Large.png", "post-cb35.jpg", 800)
+natural("2023_01_Sun-screen-.png", "post-sunscreen.jpg", 800)
+# Film posters: untouched; the CSS treatment applies to poster and film alike so the swap is seamless.
 for src, dst in (("still-film-poster.png", "libra-film-poster.jpg"), ("still-manchester-poster.png", "manchester-poster.jpg")):
     Image.open(f"{RAW}/{src}").convert("RGB").save(f"{OUT}/{dst}", quality=80, optimize=True, progressive=True)
 
