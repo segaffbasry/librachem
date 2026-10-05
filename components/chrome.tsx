@@ -79,7 +79,7 @@ function Menu({ open, close, trigger, group }: { open: boolean; close: () => voi
    padding, 0.25em radius); an outline and a filled button at the far end; each trigger drops a white mega panel
    joined to the bar's underside (columns split by 1px rules, a feature card with an image), and the page behind
    dims to rgba(0,0,0,.25). Here the dim is navy at 25%, the panel lists the live dropdown's links and its card
-   shows one of Libra's photos. Click or Enter opens a panel, Esc / click outside / the trigger again closes it,
+   shows one of Libra's photos. Hover opens a panel (click or Enter on touch and keyboards); leaving the bar and panel, Esc or a click outside closes it,
    focus returns to the trigger. Under 1180px the triggers give way to "Menu" and the full-screen menu.
    The bar slides away on the way down and returns on the way up (ACN's PAGE_SCROLL_DOWN / UP). */
 const features = [
@@ -96,6 +96,14 @@ function Header() {
   const [trigger, setTrigger] = useState<HTMLElement | null>(null);
   const bar = useRef<HTMLElement>(null);
   const close = useCallback(() => setOpen(false), []);
+  /* Hover opens a panel (pointer devices only); leaving the bar and panel closes it after a 150ms grace, so the
+     pointer can travel from a trigger down into its panel. Click and Enter still toggle, for touch and keyboards. */
+  const leaveTimer = useRef(0);
+  const canHover = () => window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const hoverOpen = (index: number) => { if (!canHover()) return; window.clearTimeout(leaveTimer.current); setPanel(index); };
+  const hoverStay = () => window.clearTimeout(leaveTimer.current);
+  const hoverLeave = () => { if (!canHover()) return; window.clearTimeout(leaveTimer.current); leaveTimer.current = window.setTimeout(() => setPanel(-1), 150); };
+  useEffect(() => () => window.clearTimeout(leaveTimer.current), []);
   const closePanel = useCallback((refocus = false) => {
     setPanel((current) => {
       if (refocus && current >= 0) bar.current?.querySelector<HTMLElement>(`[data-panel-trigger="${current}"]`)?.focus();
@@ -133,18 +141,18 @@ function Header() {
 
   return <>
     <div className={`header-dim${panel >= 0 ? " is-on" : ""}`} aria-hidden="true" />
-    <header className={`site-header${panel >= 0 ? " has-panel" : ""}`} ref={bar}>
+    <header className={`site-header${panel >= 0 ? " has-panel" : ""}`} ref={bar} onMouseLeave={hoverLeave} onMouseEnter={hoverStay}>
       <div className="header-bar" data-hero-part>
-        <a href="#top" className="brand" aria-label="Libra Speciality Chemicals, back to the top"><Logo title="" /></a>
+        <a href="#top" className="brand" aria-label="Libra Speciality Chemicals, back to the top" onMouseEnter={hoverLeave}><Logo title="" /></a>
         <nav className="header-nav" aria-label="Main">
           <ul>{navGroups.map((g, i) => <li key={g.label}>
-            <button className={`header-link${panel === i ? " is-open" : ""}`} data-panel-trigger={i} aria-expanded={panel === i} aria-controls={`panel-${i}`} onClick={() => setPanel(panel === i ? -1 : i)}>
+            <button className={`header-link${panel === i ? " is-open" : ""}`} data-panel-trigger={i} aria-expanded={panel === i} aria-controls={`panel-${i}`} onMouseEnter={() => hoverOpen(i)} onClick={() => { if (!canHover()) setPanel(panel === i ? -1 : i); else setPanel(i); }}>
               <span>{g.label}</span>
               <svg className="caret" viewBox="0 0 18 18" width="16" height="16" aria-hidden="true" focusable="false"><path d="M5 7.5 9 11.5l4-4" fill="none" stroke="currentColor" strokeWidth="1.6" /></svg>
             </button>
           </li>)}</ul>
         </nav>
-        <div className="header-actions">
+        <div className="header-actions" onMouseEnter={hoverLeave}>
           <a href={products.catalog.href} className="header-secondary" {...linkProps(products.catalog.href)}>{products.catalog.label}</a>
           <Button href={getInTouch.href} tone="navy" size="sm" className="header-cta" reveal={false}>{getInTouch.label}</Button>
           <button className="menu-toggle" aria-haspopup="dialog" aria-expanded={open} aria-controls="site-menu" onClick={(e) => { setTrigger(e.currentTarget); setOpen(true); }}>
