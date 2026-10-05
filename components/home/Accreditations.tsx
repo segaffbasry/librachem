@@ -1,24 +1,31 @@
-import { Button, linkProps } from "@/components/ui";
+import { linkProps } from "@/components/ui";
 import { accreditations, badges } from "@/lib/content";
+import type { Badge } from "@/lib/content";
 
-/* ACN's member wall, almost exactly: a ruled grid of square cells, one mark in each. All twelve live badges are
-   here, in one ink. Badges with a live certificate or directory link are links; the rest are plain cells. */
+/* Accreditations as a scrolling logo strip directly under the hero (client feedback: "logos should just be
+   scrolling and we don't need such a big section"). This is ACN's own hero pattern: its member logos run in a
+   marquee under the headline. The track holds the twelve marks twice and slides by half its width, so the loop is
+   seamless; the copy is aria-hidden and unfocusable. It pauses on hover and keyboard focus, and with reduced motion
+   it stops and becomes a plain horizontally scrollable row. */
+function Mark({ badge, copy }: { badge: Badge; copy?: boolean }) {
+  const img = <img src={badge.src} alt={copy ? "" : badge.label} title={badge.label} />;
+  if (!badge.href) return <li className="mark">{img}</li>;
+  return <li className="mark"><a href={badge.href} {...linkProps(badge.href)} tabIndex={copy ? -1 : undefined} aria-label={copy ? undefined : `${badge.label} certificate`}>{img}</a></li>;
+}
+
 export function Accreditations() {
-  return <section className="accreditations section" id="accreditations" aria-labelledby="acc-title" data-late tabIndex={-1}>
-    <div className="wrap">
-      <div className="acc-head">
-        <h2 className="h2" id="acc-title" data-reveal="heading">{accreditations.title}</h2>
-        <div className="copy acc-copy">{accreditations.text.map((t) => <p key={t} data-reveal="text">{t}</p>)}</div>
+  return <section className="accreditations" id="accreditations" aria-labelledby="acc-title" tabIndex={-1}>
+    <div className="wrap acc-strip">
+      <div className="acc-label">
+        <h2 className="label" id="acc-title">{accreditations.title}</h2>
+        <a href={accreditations.cta.href} className="u-link acc-link" {...linkProps(accreditations.cta.href)}>View certificates</a>
       </div>
-      <ul className="badges">
-        {badges.map((b) => {
-          const inner = <><img src={b.src} alt="" loading="lazy" /><span className="badge-name">{b.label}</span></>;
-          return <li key={b.label} className="badge" data-reveal="card">
-            {b.href ? <a href={b.href} {...linkProps(b.href)} aria-label={`${b.label} (certificate)`}>{inner}</a> : <div>{inner}</div>}
-          </li>;
-        })}
-      </ul>
-      <div className="acc-foot"><Button href={accreditations.cta.href} tone="line">{accreditations.cta.label}</Button></div>
+      <div className="marquee">
+        <div className="marquee-track">
+          <ul>{badges.map((b) => <Mark key={b.label} badge={b} />)}</ul>
+          <ul aria-hidden="true">{badges.map((b) => <Mark key={b.label} badge={b} copy />)}</ul>
+        </div>
+      </div>
     </div>
   </section>;
 }

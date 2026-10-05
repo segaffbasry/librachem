@@ -1,24 +1,45 @@
-/* ---------- Header: frameless, colour follows the ground (html[data-header]) ---------- */
-.site-header { position: fixed; inset: 0 0 auto; z-index: 50; height: var(--header-h); color: var(--navy); transition: transform var(--dur-slow) var(--ease), color var(--dur-hover) var(--ease); }
-html[data-header="dark"] .site-header { color: var(--white); }
-.site-header.is-hidden { transform: translateY(-100%); }
-.site-header-inner { display: flex; align-items: center; gap: clamp(16px, 2vw, 32px); height: 100%; }
-.brand { display: block; flex: none; }
-.brand .logo { width: clamp(92px, 6vw + 20px, 112px); height: auto; }
-html.is-landing .site-header .brand { visibility: hidden; }
-.header-nav { margin-left: auto; }
-.header-nav ul { display: flex; gap: clamp(18px, 1.8vw, 30px); }
-.header-link { position: relative; min-height: 44px; font-size: 0.99rem; letter-spacing: 0.01em; } /* ACN nav 15.84px */
-.header-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: 10px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: 0 50%; transition: transform var(--dur-hover) var(--ease); }
-.header-link:hover::after, .header-link:focus-visible::after { transform: scaleX(1); }
-.header-actions { display: flex; align-items: center; gap: clamp(12px, 1.6vw, 24px); }
-.menu-toggle { display: none; align-items: center; gap: 12px; min-height: 44px; font-size: 0.99rem; }
-.menu-toggle-lines { display: grid; gap: 6px; width: 24px; }
+/* ---------- Header: abatable.com's floating bar and mega panels (components/chrome.tsx has the measurements) ---------- */
+.site-header { --bar-h: clamp(60px, 3vw + 28px, 72px); position: fixed; top: clamp(10px, 1.4vw, 20px); left: var(--gutter); right: var(--gutter); z-index: 50; max-width: calc(1584px - 2 * var(--gutter)); margin-inline: auto; color: var(--navy); transition: transform var(--dur-slow) var(--ease); }
+.site-header.is-hidden { transform: translateY(calc(-100% - 24px)); }
+.header-bar { position: relative; z-index: 2; display: flex; align-items: center; gap: 12px; height: var(--bar-h); padding: 0 10px 0 clamp(14px, 1.6vw, 24px); background: var(--white); border-radius: 4px; box-shadow: 0 0 0 1px rgba(38, 48, 104, 0.08), 0 10px 30px rgba(38, 48, 104, 0.08); transition: border-radius var(--dur-fast) var(--ease); }
+.site-header.has-panel .header-bar { border-radius: 4px 4px 0 0; }
+.brand { display: block; flex: none; margin-right: clamp(12px, 2.4vw, 48px); } /* abatable: 3em after the logo */
+.brand .logo { width: clamp(96px, 5vw + 40px, 122px); height: auto; }
+.header-nav ul { display: flex; gap: 0.25em; }
+.header-link { display: inline-flex; align-items: center; gap: 2px; min-height: 40px; padding: 0.375em 0.3em 0.375em 0.625em; border-radius: 4px; font-size: 0.9375rem; font-weight: 700; letter-spacing: 0.005em; transition: background-color var(--dur-fast) var(--ease); }
+.header-link:hover, .header-link.is-open { background: var(--mist); }
+.header-link .caret { transition: transform var(--dur-hover) var(--ease); }
+.header-link.is-open .caret { transform: rotate(180deg); }
+.header-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.header-secondary { display: inline-flex; align-items: center; min-height: 40px; padding: 0.5em 1.1em; border: 1px solid var(--navy); border-radius: 4px; font-size: 0.9375rem; transition: background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease); }
+.header-secondary:hover, .header-secondary:focus-visible { background: var(--navy); color: var(--white); }
+.header-cta { border-radius: 4px; }
+.menu-toggle { display: none; align-items: center; gap: 10px; min-height: 40px; padding: 0 10px; font-size: 0.9375rem; font-weight: 700; }
+.menu-toggle-lines { display: grid; gap: 5px; width: 22px; }
 .menu-toggle-lines i { display: block; height: 1.5px; background: currentColor; transition: transform var(--dur-hover) var(--ease); }
 .menu-toggle:hover .menu-toggle-lines i:last-child { transform: scaleX(0.6); transform-origin: 100% 50%; }
+
+/* Mega panels: joined to the bar's underside, opened by clip from the top (0.3s), page dimmed behind. */
+.header-panels { position: absolute; left: 0; right: 0; top: 100%; z-index: 1; }
+.header-panel { position: absolute; inset: 0 0 auto; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); background: var(--white); border-top: 1px solid var(--line); border-radius: 0 0 4px 4px; box-shadow: 0 24px 40px rgba(38, 48, 104, 0.12); visibility: hidden; opacity: 0; clip-path: inset(0 0 100% 0); transition: clip-path var(--dur-hover) var(--ease), opacity var(--dur-fast) var(--ease), visibility 0s linear var(--dur-hover); }
+.header-panel.is-open { visibility: visible; opacity: 1; clip-path: inset(0 0 0 0); transition: clip-path var(--dur-hover) var(--ease), opacity var(--dur-fast) var(--ease), visibility 0s; }
+.panel-col { padding: clamp(24px, 2.6vw, 40px) clamp(20px, 2vw, 32px); }
+.panel-links { border-right: 1px solid var(--line); }
+.panel-title { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; font-family: var(--font-display); font-weight: 500; font-size: 1.125rem; text-transform: uppercase; letter-spacing: 0.02em; }
+.panel-title:hover .arrow { transform: translateX(4px); }
+.panel-links ul { display: grid; gap: 2px; }
+.panel-links ul.is-two { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
+.panel-links li a { display: block; padding: 0.55em 0.75em; margin-left: -0.75em; border-radius: 4px; font-size: 0.9375rem; transition: background-color var(--dur-fast) var(--ease); } /* abatable .mega-nav__panel-link */
+.panel-links li a:hover, .panel-links li a:focus-visible { background: var(--mist); }
+.panel-card { display: grid; grid-template-rows: auto 1fr auto; gap: 14px; }
+.panel-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 4px; }
+.panel-card-text { font-size: 0.9375rem; color: var(--muted); max-width: 46ch; }
+.panel-card-cta { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: var(--fs-small); letter-spacing: 0.06em; text-transform: uppercase; }
+.panel-card:hover .arrow { transform: translateX(4px); }
+.header-dim { position: fixed; inset: 0; z-index: 45; background: rgba(38, 48, 104, 0.25); opacity: 0; visibility: hidden; transition: opacity var(--dur-hover) var(--ease), visibility 0s linear var(--dur-hover); }
+.header-dim.is-on { opacity: 1; visibility: visible; transition: opacity var(--dur-hover) var(--ease), visibility 0s; }
 @media (max-width: 1180px) {
-  .header-nav { display: none; }
-  .header-actions { margin-left: auto; }
+  .header-nav, .header-panels, .header-secondary { display: none; }
   .menu-toggle { display: inline-flex; }
 }
 @media (max-width: 480px) { .header-cta { display: none; } }
@@ -64,8 +85,8 @@ html.is-landing .site-header .brand { visibility: hidden; }
 @media (max-width: 960px) { .footer-top { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 520px) { .footer-grid { grid-template-columns: 1fr; } }
 
-/* ---------- Preloader: the hero's opening ground (white) ---------- */
-.preloader { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; background: var(--white); color: var(--navy); pointer-events: none; }
+/* ---------- Loading screen: navy, the logo reversed out (white letters, lime swooshes) ---------- */
+.preloader { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; background: var(--navy); color: var(--white); pointer-events: none; clip-path: inset(0 0 0 0); }
 .preloader-sign { visibility: hidden; }
 .preloader .logo { width: clamp(220px, 30vw, 380px); height: auto; overflow: visible; }
-html:not(.js) .preloader, html.intro-seen .preloader { display: none; }
+html:not(.js) .preloader { display: none; }

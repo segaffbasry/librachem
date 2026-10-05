@@ -17,6 +17,17 @@ npm run build      # static: / plus the framework's /_not-found (and /icon.svg)
 | `npm run media` | `scripts/media.sh`: downloads every image and film into `_scrape/raw` (gitignored) and writes the toned web versions to `public/media` and `public/badges` |
 | `npm run logo` | `scripts/logo.py`: traces the logo PNG into vector parts, writes `lib/logo.ts` and `public/logos/*.svg` (needs `brew install potrace`) |
 
+## Client feedback round 1 (2026-10-05)
+
+| Feedback | Change |
+| --- | --- |
+| "I don't like these blocks" (the 8-tile grid): about us, products and industrial sectors should each be a section, the rest removed | Tile grid and the three pillar boxes removed. New **About us** section (live About / Our Company / Why Choose Libra copy, four facts, two site photos, links to the three About pages), **Our products** (all 12 live product ranges on a ruled grid with family, summary and link, plus catalog and product-guide buttons) and **Industrial sectors** (the 5 live application markets as rows beside a crossfading photo). The Contract & Toll line moved into the Made in Manchester band |
+| Accreditation logos "should just be scrolling", smaller, under the header | The 12-badge grid became a slim marquee strip directly under the hero (ACN's own hero pattern), pausing on hover/focus, static and scrollable with reduced motion |
+| "What can we do to the header to make it better?" / "take header reference from abatable.com" | Header rebuilt after abatable.com: floating white bar inset to the margins, larger logo, five section triggers with carets opening mega panels (links + photo card, page dimmed), "Product catalog" outline + "Get in touch" filled buttons |
+| "Can we do a loading screen with the logo?" | The logo loading screen now plays on every visit, on navy with the logo reversed out, and exits with a curtain lift |
+
+Note: the Industrial Sectors summary joins the live page's opening line with its five market headings (lubricants and metal works, water treatment, building and construction, textiles).
+
 ## Route
 
 One route, `/` (`app/page.tsx` → `components/home/Home.tsx`). No archive or detail pages. Every card, "all news",
@@ -74,20 +85,21 @@ has no blended backdrop: sections have their own grounds.
 | # | Section | Ground | Imagery |
 | --- | --- | --- | --- |
 | 1 | Hero: statement left, brand film panel right (ACN's hero + blue panel) | white | Libra site film |
-| 2 | About: statement, paragraph, three stepped cards (ACN's offset cards) | white | reactor panel, site aerial, control room |
-| 3 | Markets: 8 tiles on a ruled grid (ACN's member wall) | mist | 8 tile photos |
-| 4 | Made in Manchester band (ACN's dark CTA) | navy | Manchester film |
-| 5 | Accreditations: 12 marks on a ruled grid | white | badges |
-| 6 | Events & Awards row + Latest News cards (ACN's event row and news cards) | mist | award, 3 post images |
-| 7 | Footer: Get in touch, contact, links | navy | |
+| 2 | Accreditations marquee | white, hairlines | 12 marks |
+| 3 | About us: copy, facts row, links | white | head office, tank farm |
+| 4 | Our products: 12 ranges on a ruled grid | mist | |
+| 5 | Industrial sectors: 5 rows + crossfading photo | white | 5 sector photos |
+| 6 | Made in Manchester + Contract & Toll band (ACN's dark CTA) | navy | Manchester film |
+| 7 | Events & Awards row + Latest News cards | mist | award, 3 post images |
+| 8 | Footer: Get in touch, contact, links | navy | |
 
-Measured page height (production build, headless Chrome):
+Measured page height (production build, headless Chrome, after round 1):
 
 | Width | Height | Viewport heights |
 | --- | --- | --- |
-| 1440 × 900 | 6038px | 6.7 |
-| 768 × 1024 | ≈8900px before the tablet card-row change (now shorter) | ≈8.7 |
-| 375 × 812 | 7281px | 9.0 |
+| 1440 × 900 | 6296px | 7.0 |
+| 768 × 1024 | 8408px | 8.2 |
+| 375 × 812 | 8931px | 11.0 (phones stack every column; product summaries collapse to one-line rows) |
 
 Section padding is `--space-section` (56px phone to 88px desktop); neighbouring sections never share a ground,
 so paddings never stack on one colour.
@@ -108,26 +120,24 @@ Same element shape (`<a class="btn"><span class="btn-text">`), same padding, sam
 default → `line` (follows currentColor, so it works in the header on any ground), `.cc-blue-shadow` → `navy` (lime
 shadow), `.cc-green` → `lime`, the dark band's outline → `white`. Focus-visible gets the same lift.
 
-## Preloader
+## Preloader (loading screen)
 
-`components/Preloader.tsx`, one GSAP timeline, 1.75s:
+`components/Preloader.tsx`, one GSAP timeline, 1.90s, on every page load (client request):
 
 | Time | Stage |
 | --- | --- |
-| 0.10–0.95s | **Build.** The lower swoosh opens from its right tip and the upper from its left (clip wipes), so the orbit turns once; L·I·B·R·A rise in 0.06s apart; the wave wipes across the A; the tagline clip-wipes open |
-| 0.95–1.20s | **Hold** |
-| 1.20–1.75s | **Exit.** The lock-up glides and scales into the header logo; the white ground fades over the hero, which opens on the same white |
+| 0.10–0.95s | **Build** on navy. The lower swoosh opens from its right tip and the upper from its left (clip wipes), so the orbit turns once; L·I·B·R·A rise in white 0.06s apart; the lime wave wipes across the A; the tagline clip-wipes open |
+| 0.95–1.30s | **Hold** |
+| 1.30–1.90s | **Exit.** The navy curtain lifts from the bottom edge (clip-path) with the logo rising inside it, uncovering the hero |
 
 Why this build: the logo is a wordmark held in an orbit, not a tiled mark, so the orbit draws and the letters are
-set inside it. Handover at 1.30s removes `is-loading`, sets `data-intro="done"` and dispatches `intro:done`; the hero
-entrance (film panel clip-open, headline lines rising, header fade) starts on that event, so the two overlap. Lenis is
-stopped until then. A 2.2s failsafe finishes it whatever happens. It plays once per browser session
-(`sessionStorage` `libra-intro`; the boot script in `app/layout.tsx` checks the same key so a repeat visit never paints
-it), never with reduced motion, and `<noscript>` hides it. It is `aria-hidden`.
+set inside it. Handover at 1.40s removes `is-loading`, sets `data-intro="done"` and dispatches `intro:done`; the hero
+entrance (film panel clip-open, headline lines rising, header fade) starts on that event, under the lifting curtain.
+Lenis is stopped until then. A 2.3s failsafe finishes it whatever happens. Never with reduced motion; `<noscript>`
+hides it; `aria-hidden`.
 
-Measured on the production build (headless Chrome, `performance.mark`s left in the component): starts 130ms after
-navigation, handover at 1.29s, done at 1.75s (1.88s after navigation). First paint is the white preloader ground, so
-there is no flash of the page or hero before it.
+Measured on the production build (headless Chrome, `performance.mark`s in the component): starts about 100ms
+after navigation, handover at 1.40s, done at 1.90s (about 2.0s after navigation). First paint is the navy ground.
 
 ## Motion system
 
@@ -144,9 +154,7 @@ in `[data-late]` sections durations are 75%.
 | `image` | Manchester film | clip opens from the bottom, 0.9s; `[data-parallax]` pillar photos drift ±5% |
 
 Hover: photos ease to 1.05 scale (0.5s), arrows step 5 to 6px (0.3s), text links draw an underline (0.3s).
-Per-character motion appears only in the preloader. Header: frameless; it takes white over the navy band and footer
-and navy elsewhere (probe on full-width sections only), hides on scroll down and returns on scroll up. Menu: header
-group names (or "Menu" under 1180px) open a full-screen navy menu (clip wipe down, items rise, `reverse()` out) with a
+Per-character motion appears only in the preloader. Header: abatable.com's floating white bar and mega panels (see `components/chrome.tsx` for the measured values); it hides on scroll down and returns on scroll up. Under 1180px, "Menu" opens a full-screen navy menu (clip wipe down, items rise, `reverse()` out) with a
 focus trap, Esc to close and focus returned to the trigger.
 
 **Hero film:** muted, looped, `playsInline`, local poster, pause/play button (`aria-pressed`), pauses off-screen,

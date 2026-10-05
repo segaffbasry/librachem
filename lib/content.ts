@@ -5,8 +5,6 @@
 import { LIVE, pages } from "@/lib/site";
 
 export type Photo = { src: string; alt: string; w: number; h: number; contain?: boolean; focus?: string };
-export type Pillar = { title: string; text: string; href: string; cta: string; photo: Photo };
-export type Tile = { title: string; href: string; photo: Photo };
 export type Badge = { label: string; src: string; href: string | null };
 export type Post = { title: string; href: string; date: string; category: string; excerpt: string; photo: Photo };
 
@@ -19,51 +17,91 @@ export const hero = {
   place: "Manchester, UK",
 };
 
-// "About" block: the live intro paragraph and the "over 50 years" line that introduces the three pillars.
+/* Client feedback (2026-10-05): the homepage tile grid is replaced by three real sections: About us, Our products
+   (the actual product ranges) and Industrial sectors. The other tiles and the three pillar boxes are removed.
+   Copy is from the live About, Our Company, Why Choose Libra, Products and Applications pages, verbatim. */
 export const about = {
-  eyebrow: "About Libra",
-  statement: "At Libra, we have been setting the standards in the provision of high quality chemical and speciality surfactant manufacturing for over 50 years.",
+  eyebrow: "About us",
+  // /about-us/ subtitle
+  title: "Providing high quality products and services to the chemical industry since 1971",
+  // Homepage intro paragraph
   body: "Based in Manchester, UK, Libra Speciality Chemicals are a leading UK chemical manufacturer and global distributor of surfactants and speciality industrial chemicals. Our chemicals are supplied into various industrial markets including Personal Care, Household & Institutional Cleaning and Industrial sectors including Energy Extraction, Agriculture, Lubricants, Metal Working and Coatings markets.",
-  learnMore: "Learn more about:",
-  href: `${LIVE}/about-us/`,
+  // /about-us/our-company/
+  story: "Our five-acre manufacturing site, based on the Northbank Industrial Estate in Irlam, Manchester is within easy access of the M6, M62 and M60 motorways. This has given us ideal transport links to service our customers around the UK and to export our multi-award winning service to global markets.",
+  // /about-us/why-choose-libra/ "Our Capacity" and /about-us/our-company/
+  facts: [
+    { value: "1971", label: "Providing products and services to the chemical industry since 1971" },
+    { value: "5 acres", label: "Manufacturing site in Irlam, Manchester" },
+    { value: "15 + 9", label: "Mixing vessels and reactors available as part of our contract and toll service" },
+    { value: "Betaine", label: "One of the largest betaine manufacturing capacities globally" },
+  ],
+  links: [
+    { label: "Our Company", href: `${LIVE}/about-us/our-company/` },
+    { label: "Our Team", href: `${LIVE}/about-us/our-team/` },
+    { label: "Why Choose Libra", href: `${LIVE}/about-us/why-choose-libra/` },
+  ],
+  photo: { src: "/media/head-office.jpg", alt: "Libra's head office in Irlam, a red-brick building with a glass entrance", w: 1600, h: 857 },
+  photo2: { src: "/media/tank-farm.jpg", alt: "Aerial view of the tank farm and reaction plant at Irlam", w: 1600, h: 857 },
 };
 
-/* The three "Learn more about" boxes. The live boxes carry animated GIF icons; here each one leads with a
-   photograph of the Irlam site instead (two are stills from the company film). */
-export const pillars: Pillar[] = [
-  { title: "Libra Products", text: "Libra manufacture speciality performance and bespoke surfactants with a wide range of industry applications…", href: pages.products, cta: "Discover more",
-    photo: { src: "/media/reactor-panel.jpg", alt: "An operator at a reactor control panel on the Libra site", w: 960, h: 540 } },
-  { title: "Applications & Distribution", text: "Our surfactants are produced for global industries alongside the global distribution of surfactants…", href: pages.applications, cta: "Discover more",
-    photo: { src: "/media/site-aerial.jpg", alt: "Aerial view of the Libra site at Irlam: storage tanks, warehouses and IBC yard", w: 1600, h: 857 } },
-  { title: "Contract & Toll", text: "Libra provide a bespoke, total chemical manufacturing and supply solution to meet your company’s needs…", href: pages.contract, cta: "Discover more",
-    photo: { src: "/media/control-room.jpg", alt: "A Libra operator in hi-vis monitoring production screens in the control room", w: 960, h: 540 } },
-];
+export type Product = { name: string; family: string; text: string; href: string };
+const P = `${LIVE}/libra-products`;
+// /libra-products/: the "Libra Product Range" cards (names and summaries as written there) and the surfactant
+// family each range sits under in the page's own Nonionic / Amphoteric / Anionic / Cationic lists.
+export const products = {
+  eyebrow: "Our products",
+  title: "Our range of speciality surfactants and chemicals",
+  body: "From our Manchester (UK) site, we have been producing and developing a wide range of speciality surfactants for over 50 years, all with different properties and purposes in chemical formulations. As primary, secondary and co-surfactants in formulations, our surfactants can act as foaming agents, detergents, emulsifiers, dispersing agents and more.",
+  catalog: { label: "Product catalog", href: "https://www.librachem.store/products" },
+  guide: { label: "Download product guide", href: "https://online.flippingbook.com/view/827249133/" },
+  items: [
+    { name: "Librateric Betaines", family: "Amphoteric", text: "Our Librateric Cocamidopropyl Betaines (CAB) are high-quality surfactants manufactured…", href: `${P}/librateric-betaines/` },
+    { name: "Librateric Low Salt Betaine", family: "Amphoteric", text: "Our Librateric Low-Salt Betaines are innovative surfactants with global applications…", href: `${P}/low-salt-betaine/` },
+    { name: "Librateric Amphoteric Surfactants", family: "Amphoteric", text: "Our Librateric Amphoterics are highly versatile are compatible with various different types of surfactants…", href: `${P}/librateric-amphoteric-surfactants/` },
+    { name: "Libranox Amine Oxides", family: "Nonionic", text: "Our Libranox series of amine oxide surfactants are highly compatible, non-ionic…", href: `${P}/libranox-amine-oxides/` },
+    { name: "Libranol Alkanolamides", family: "Nonionic", text: "Our Libranol Alkanolamides are a range of highly compatible, non-ionic…", href: `${P}/alkanolamides/` },
+    { name: "LibraCare Alkyl Polyglucosides (APG)", family: "Nonionic", text: "Our LibraCare Alkyl Polyglucoside range of readily biodegradable surfactants…", href: `${P}/libracare-alkyl-polyglucosides-apgs/` },
+    { name: "Libranone Alcohol Ethoxylates", family: "Nonionic", text: "Our range of Alcohol Ethoxylates have excellent properties for supporting…", href: `${P}/libranone-non-ionic-alcohol-ethoxylates/` },
+    { name: "Libratex Dioctyl Sulphosuccinates", family: "Anionic", text: "Our Libratex range are compatible with other anionic and nonionic surfactants…", href: `${P}/libratex-sodium-dioctyl-sulphosuccinates/` },
+    { name: "Libraphos Phosphate Esters", family: "Anionic", text: "Our Libraphos series of free-acid phosphate esters are anionic surfactants…", href: `${P}/libraphos-phosphate-esters/` },
+    { name: "Libradet Formulated Products", family: "Anionic", text: "Our Libradet range are a synergistic blend of surfactants and foam stabilisers…", href: `${P}/libradet-formulated-products/` },
+    { name: "Libraquat PQ7: Polyquaternium-7", family: "Cationic", text: "Our Libraquat PQ7 surfactant is a water soluble copolymer with excellent cleaning…", href: `${P}/libraquat-pq7-polyquaternium-7-cationic-surfactant/` },
+    { name: "Libra Specialised Surfactants", family: "Specialised", text: "Our Libra range of specialised surfactants have specific properties and applications…", href: `${P}/libra-specialized-products/` },
+  ] as Product[],
+};
 
-// The live tile grid: eight image tiles around the "Made in Manchester" film tile (that one is the band below).
-// Live hrefs such as /personal-care/ 301 to the /libra-applications/ addresses used here.
-export const tiles: Tile[] = [
-  { title: "About us", href: `${LIVE}/about-us/`, photo: { src: "/media/head-office.jpg", alt: "Libra's head office, a red-brick building with a glass entrance", w: 1600, h: 857 } },
-  { title: "Our Products", href: pages.products, photo: { src: "/media/glassware.jpg", alt: "Laboratory glassware holding clear liquids", w: 1600, h: 640 } },
-  { title: "Personal Care", href: `${LIVE}/libra-applications/personal-care/`, photo: { src: "/media/sector-personal-care.jpg", alt: "A hand holding a small jar of cream", w: 724, h: 656 } },
-  { title: "HI & I Cleaning", href: `${LIVE}/libra-applications/hi-i-cleaning/`, photo: { src: "/media/sector-cleaning.jpg", alt: "Trigger spray bottles and a cleaning cloth", w: 900, h: 571 } },
-  { title: "Contract Manufacturing", href: pages.contract, photo: { src: "/media/tank-farm.jpg", alt: "Aerial view of the tank farm and reaction plant at Irlam", w: 1600, h: 857 } },
-  { title: "Agriculture", href: `${LIVE}/libra-applications/agriculture/`, photo: { src: "/media/sector-agriculture.jpg", alt: "A pivot irrigator watering a field of crops", w: 724, h: 479 } },
-  { title: "Oil & Gas", href: `${LIVE}/libra-applications/oil-and-gas/`, photo: { src: "/media/sector-oil-gas.jpg", alt: "Pipelines running out over water at dusk", w: 724, h: 543 } },
-  { title: "Industrial Sectors", href: `${LIVE}/libra-applications/industrial-sectors/`, photo: { src: "/media/sector-industrial.jpg", alt: "Coolant spraying over a metal part on a lathe", w: 900, h: 599 } },
-];
-
-export const markets = {
-  eyebrow: "Applications & Distribution",
-  // From the live intro paragraph ("Our chemicals are supplied into various industrial markets…").
-  title: "Our chemicals are supplied into various industrial markets",
+export type Sector = { name: string; text: string; href: string; photo: Photo };
+const A = `${LIVE}/libra-applications`;
+// /libra-applications/ (the "Learn more about our global industry applications" blocks) and
+// /libra-applications/industrial-sectors/ for the fifth.
+export const sectors = {
+  eyebrow: "Industrial sectors",
+  title: "Speciality chemicals and surfactants for a range of global industries",
+  body: "Libra manufacture and distribute our chemicals globally as well as working with customers to develop and manufacture their portfolio for their required industries.",
+  href: `${A}/`,
+  items: [
+    { name: "Personal Care", text: "Libra have an extensive portfolio of high-quality surfactants for Personal Care markets. From cosmetic products to toiletries, our formulations will help meet your growing customer demands.", href: `${A}/personal-care/`,
+      photo: { src: "/media/sector-personal-care.jpg", alt: "A hand holding a small jar of cream", w: 724, h: 656 } },
+    { name: "HI & I Cleaning", text: "Libra have extensive experience with Home, Industrial & Institutional (HI&I) Cleaning formulations. We have the formula for your success within global specialist cleaning markets.", href: `${A}/hi-i-cleaning/`,
+      photo: { src: "/media/sector-cleaning.jpg", alt: "Trigger spray bottles and a cleaning cloth", w: 900, h: 571 } },
+    { name: "Agriculture", text: "Libra’s speciality product portfolio can be utilised for agrochemical products like Emulsifiers or Dispersing Agents, offering a solution for your continued success within agriculture markets.", href: `${A}/agriculture/`,
+      photo: { src: "/media/sector-agriculture.jpg", alt: "A pivot irrigator watering a field of crops", w: 724, h: 479 } },
+    { name: "Energy Extraction", text: "Our range of surfactants are supplied for specialist, sustainable and accredited Energy Extraction products for Oil & Gas Fields. Libra offer expert products that benefit our customers and the industry.", href: `${A}/oil-and-gas/`,
+      photo: { src: "/media/sector-oil-gas.jpg", alt: "Pipelines running out over water at dusk", w: 724, h: 543 } },
+    { name: "Industrial Sectors", text: "From general use to speciality requirements, we offer the solution for success in varying industrial sectors: industrial lubricants and metal works, water treatment, building and construction, and textiles.", href: `${A}/industrial-sectors/`,
+      photo: { src: "/media/sector-industrial.jpg", alt: "Coolant spraying over a metal part on a lathe", w: 900, h: 599 } },
+  ] as Sector[],
 };
 
 // The live film tile: "Made in Manchester (UK) / Distributed around the world" over the site film.
 export const manchester = {
   lines: ["Made in Manchester (UK)", "Distributed around the world"],
+  // The Contract & Toll pillar text from the homepage, moved here when the pillars were removed.
+  contract: "Libra provide a bespoke, total chemical manufacturing and supply solution to meet your company’s needs.",
   film: { src: "/media/manchester.mp4", poster: "/media/manchester-poster.jpg", label: "Short film of the Libra site in Manchester" },
 };
 
+// Shown as a scrolling strip under the hero (client feedback 2026-10-05: "logos should just be scrolling").
 export const accreditations = {
   title: "Our Accreditations",
   text: [

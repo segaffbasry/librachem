@@ -42,7 +42,7 @@
   --space-section: clamp(56px, 40px + 3.4vw, 88px);
   --space-block: clamp(32px, 24px + 1.6vw, 48px);
   --space-tight: clamp(16px, 12px + 0.6vw, 24px);
-  --header-h: 76px;
+  --header-h: 96px; /* floating bar: top offset + bar + breathing room */
   --measure: 64ch;
 
   /* Motion (lib/ease.ts has the JS twins). ACN runs every interaction on CSS "ease". */

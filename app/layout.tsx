@@ -14,13 +14,12 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false, nocache: true, googleBot: { index: false, follow: false } },
 };
 
-export const viewport: Viewport = { themeColor: "#ffffff" };
+export const viewport: Viewport = { themeColor: "#263068" };
 
 /* `js` (and the preloader's `is-loading`/`is-landing`) is set before first paint, unless reduced motion is requested,
-   so reveal targets can start hidden without a flash. The preloader plays once per session: a repeat visit gets `js`
-   only. Without JavaScript none of the classes are added and everything renders in place; the <noscript> style also
-   hides the preloader. */
-const boot = "(function(){var d=document.documentElement;if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('js');var s=null;try{s=sessionStorage.getItem('libra-intro')}catch(e){}if(s!=='1')d.classList.add('is-loading','is-landing');else d.classList.add('intro-seen')})()";
+   so reveal targets can start hidden without a flash. Without JavaScript none of the classes are added and everything
+   renders in place; the <noscript> style also hides the preloader. */
+const boot = "if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js','is-loading')";
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
