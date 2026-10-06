@@ -9,7 +9,7 @@ import { Sectors } from "@/components/home/Sectors";
 
 /* The single route. Hero film and headline with the accreditations strip under it, then About us, Our products and
    Industrial sectors (the three sections the client asked for in place of the tile grid), the "Made in Manchester"
-   band with Contract & Toll, then events and news. The live LinkedIn feed widget is replaced by footer links. */
+   band with Contract & Toll, then the latest news. The live LinkedIn feed widget is replaced by footer links. */
 export function Home() {
   return <>
     <Preloader />

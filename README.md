@@ -26,6 +26,16 @@ npm run build      # static: / plus the framework's /_not-found (and /icon.svg)
 | "What can we do to the header to make it better?" / "take header reference from abatable.com" | Header rebuilt after abatable.com: floating white bar inset to the margins, larger logo, five section triggers with carets opening mega panels on hover (links + photo card, page dimmed; click on touch, Enter on keyboard), "Product catalog" outline + "Get in touch" filled buttons |
 | "Can we do a loading screen with the logo?" | The logo loading screen now plays on every visit, on navy with the logo reversed out, and exits with a curtain lift |
 
+## Client feedback round 2 (2026-10-06)
+
+| Feedback | Change |
+| --- | --- |
+| Remove the Events & Awards section | Removed; the news section now opens straight on "Latest News" (the award post is no longer on the page) |
+| "Could the products section be scrolling? It takes up a lot of space" | The 12 ranges run as one slowly scrolling row of cards (same mechanics as the accreditations strip: seamless loop, pauses on hover and focus, static scrollable row with reduced motion) |
+| Header dropdowns should open on hover | Mega panels open on hover, with a 150ms grace when leaving; click and Enter still open them on touch and keyboard |
+
+Page height after round 2: 1440 × 900 → 5571px (6.2 viewports); 375 × 812 → 7513px (9.3).
+
 Note: the Industrial Sectors summary joins the live page's opening line with its five market headings (lubricants and metal works, water treatment, building and construction, textiles).
 
 ## Route
@@ -87,10 +97,10 @@ has no blended backdrop: sections have their own grounds.
 | 1 | Hero: statement left, brand film panel right (ACN's hero + blue panel) | white | Libra site film |
 | 2 | Accreditations marquee | white, hairlines | 12 marks |
 | 3 | About us: copy, facts row, links | white | head office, tank farm |
-| 4 | Our products: 12 ranges on a ruled grid | mist | |
+| 4 | Our products: 12 ranges in a scrolling row | mist | |
 | 5 | Industrial sectors: 5 rows + crossfading photo | white | 5 sector photos |
 | 6 | Made in Manchester + Contract & Toll band (ACN's dark CTA) | navy | Manchester film |
-| 7 | Events & Awards row + Latest News cards | mist | award, 3 post images |
+| 7 | Latest News cards | mist | 3 post images |
 | 8 | Footer: Get in touch, contact, links | navy | |
 
 Measured page height (production build, headless Chrome, after round 1):

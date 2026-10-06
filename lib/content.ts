@@ -129,13 +129,7 @@ export const badges: Badge[] = [
   { label: "Sedex Supplier Plus", src: "/badges/sedex-supplier-plus.png", href: "https://acrobat.adobe.com/id/urn:aaid:sc:EU:f4a7b054-1253-4512-a371-386e49c2dcad" },
 ];
 
-// "Events & Awards" (one post in the live slider) and "Latest News" (three cards).
-export const events: Post[] = [
-  { title: "Chemicals Northwest 2026 Awards", href: `${LIVE}/2023/07/27/chemicals-northwest-2026-awards/`, date: "2023-07-27", category: "Events & Awards",
-    excerpt: "We’re pleased to share that Libra Speciality Chemicals has won the International Trade Award 2026 at the Chemicals Northwest Awards 2026. This recognition reflects our continued focus on building a strong international presence, developing long term partnerships, and delivering consistently across global markets.",
-    photo: { src: "/media/post-award.jpg", alt: "Chemicals Northwest Awards, Winner 2026, International Trade Award", w: 800, h: 487 } },
-];
-
+// "Latest News" (three cards). The live "Events & Awards" post was removed at the client's request (2026-10-06).
 export const news: Post[] = [
   { title: "Public Environmental Data", href: `${LIVE}/2023/08/03/public-environmental-data/`, date: "2023-08-03", category: "Events",
     excerpt: "2024 is the first year in which Libra’s full carbon emissions have been calculated.",
@@ -150,8 +144,7 @@ export const news: Post[] = [
 
 export const newsSection = {
   eyebrow: "News & Resources",
-  // The live section headings, "Events & Awards" and "Latest News".
-  events: "Events & Awards",
+  // The live section heading.
   title: "Latest News",
   all: { label: "All news", href: pages.news },
 };

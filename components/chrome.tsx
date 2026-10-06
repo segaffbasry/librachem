@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/Logo";
 import { focusOverlay, usePageMotion } from "@/components/motion";
 import { Arrow, Button, SocialIcon, linkProps, reducedMotion } from "@/components/ui";
-import { about, events, linko, manchester, products, sectors } from "@/lib/content";
+import { about, linko, manchester, news, products, sectors } from "@/lib/content";
 import { contact, getInTouch, navGroups, socials, usefulLinks } from "@/lib/site";
 
 // Menu shortcuts to the homepage's own sections (scrolled through Lenis).
@@ -16,7 +16,7 @@ const onPage = [
   { label: "Our products", href: "#products" },
   { label: "Industrial sectors", href: "#sectors" },
   { label: "Contract & Toll", href: "#manchester" },
-  { label: "News & events", href: "#news" },
+  { label: "Latest news", href: "#news" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -87,7 +87,7 @@ const features = [
   { src: "/media/glassware.jpg", text: products.title },
   { src: "/media/site-aerial.jpg", text: sectors.title },
   { src: "/media/tank-farm.jpg", text: manchester.contract },
-  { src: "/media/post-award.jpg", text: events[0].title },
+  { src: "/media/post-cb35.jpg", text: news[1].title },
 ];
 
 function Header() {
